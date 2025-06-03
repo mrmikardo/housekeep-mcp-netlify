@@ -20,30 +20,30 @@ export const setupMCPServer = (): McpServer => {
   );
 
   server.tool(
-      "get-trades-services-summary",
-      "Get a summary of trades services available from Housekeep",
-      {},
-      async (req): Promise<CallToolResult> => {
-        const response = await fetch(`${HOUSEKEEP_API_BASE}/work/tradespeople/v3/`);
+    "get-trades-services-summary",
+    "Get a summary of trades services available from Housekeep",
+    {},
+    async (req): Promise<CallToolResult> => {
+      const response = await fetch(`${HOUSEKEEP_API_BASE}/work/tradespeople/v3/`);
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch trades services summary: ${response.statusText}`);
-        }
-
-        const data = await response.json()
-        const text = data.sub_items
-            .map(subItem => `Name: ${subItem.name}\nString identifier: ${subItem.string_identifier}`)
-            .join('\n---\n')
-
-        return {
-          content: [
-            {
-              type: "text",
-              text,
-            },
-          ],
-        };
+      if (!response.ok) {
+        throw new Error(`Failed to fetch trades services summary: ${response.statusText}`);
       }
+
+      const data = await response.json()
+      const text = data.sub_items
+          .map(subItem => `Name: ${subItem.name}\nString identifier: ${subItem.string_identifier}`)
+          .join('\n---\n')
+
+      return {
+        content: [
+          {
+            type: "text",
+            text,
+          },
+        ],
+      };
+    }
   )
 
   return server;
