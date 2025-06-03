@@ -146,7 +146,7 @@ export const setupMCPServer = (): McpServer => {
         content: [
           {
             type: "text",
-            text,
+            text: JSON.stringify(text, null, 2),
           },
         ],
       };
