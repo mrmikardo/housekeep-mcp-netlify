@@ -71,8 +71,8 @@ const TradesQuoteRequestSchema = z.object({
           .or(z.literal("plumber-tasktype"))
           .or(z.literal("handyman-tasktype"))
   ),
-  tasks_hours: z.array(z.string().nullable()).nullable(),
-  tasks_quantities: z.array(z.string().nullable()).nullable(),
+  tasks_hours: z.array(z.string().nullable()).nullable()
+  // tasks_quantities: z.array(z.string().nullable()).nullable(),  // TODO: this is cheating.
 });
 
 
@@ -130,7 +130,7 @@ export const setupMCPServer = (): McpServer => {
       params.append("job_date", job_date);
       params.append("tasks_string_ids", tasks_string_ids.join(","));
       params.append("tasks_hours", tasks_hours.join(","));
-      params.append("tasks_quantities", tasks_quantities.join(","));
+      params.append("tasks_quantities", "");
 
       console.log(params.toString());
 
