@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   CallToolResult,
+    ReadResourceRequest
 } from "@modelcontextprotocol/sdk/types.js";
 import { TradesQuoteRequestSchema } from "./types";
 
@@ -82,6 +83,26 @@ export const setupMCPServer = (): McpServer => {
         ],
       };
     }
+  )
+
+  server.resource(
+    "using-get-trades-quote",
+    "housekeep://using-get-trades-quote",
+      { mimeType: "text/plain" },
+      async (req): Promise<ReadResourceRequest> => {
+        return {
+          contents: [
+            {
+              uri: "housekeep://using-get-trades-quote",
+              text: "To use the get-trades-quote tool, you must pass a `tasks_string_ids` argument." +
+                    "This is a list of task type identifiers from Housekeep. " +
+                    "For gardening jobs, the identifier is `gardener-tasktype`." +
+                    "For plumbing jobs, it is `plumber-tasktype`." +
+                    "For handyman jobs, it is `handyman-tasktype`. ",
+            },
+          ],
+        };
+      }
   )
 
   return server;
