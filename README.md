@@ -6,8 +6,6 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f15f03f9-55d8-4adc-97d5-f6e085141610/deploy-status)](https://app.netlify.com/sites/mcp-example-serverless/deploys)
 
-
-
 ## About this example site
 
 This site shows a very a basic example of developing and running serverless MCP using Netlify Functions. It includes links to a deployed serverless function and an example of accessing the function using a customized URL.
@@ -27,7 +25,6 @@ Deploy your own version of this example site, by clicking the Deploy to Netlify 
 - This repo can then be used to iterate on locally using `netlify dev`
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify/examples/&create_from_path=examples/mcp/serverless-mcp&utm_campaign=dx-examples)
-
 
 ## Install and run the examples locally
 
@@ -51,5 +48,3 @@ netlify dev
 npx @modelcontextprotocol/inspector npx mcp-remote@next http://localhost:8888/mcp
 
 ```
-
-
