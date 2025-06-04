@@ -1,50 +1,72 @@
-![Netlify Examples](https://github.com/netlify/examples/assets/5865/4145aa2f-b915-404f-af02-deacee24f7bf)
 
-# MCP example Netlify Serverless Functions
+# Housekeep MCP example
 
-**View this demo site**: https://mcp-example-serverless.netlify.app/
+**View the Housekeep MCP site**: https://housekeep-mcp.netlify.app/
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f15f03f9-55d8-4adc-97d5-f6e085141610/deploy-status)](https://app.netlify.com/sites/mcp-example-serverless/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7e2b1d49-4733-469b-9088-0ec71ce17dec/deploy-status)](https://app.netlify.com/projects/housekeep-mcp/deploys)
 
-## About this example site
+## What is this?
 
-This site shows a very a basic example of developing and running serverless MCP using Netlify Functions. It includes links to a deployed serverless function and an example of accessing the function using a customized URL.
+This repo shows a very a basic example of developing and running serverless MCP using Netlify Functions. It includes links to a deployed serverless function and an example of accessing the function using a customized URL.
 
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
 - [Docs: Netlify Functions](https://docs.netlify.com/functions/overview/?utm_campaign=dx-examples&utm_source=example-site&utm_medium=web&utm_content=example-mcp-serverless)
 - [Agent Experience (AX)](https://agentexperience.ax?utm_source=serverless-mcp-guide&utm_medium=web&utm_content=example-mcp-serverless)
 
-## Speedily deploy your own version
+The MCP server provided here exposes three _tools_:
+- `get-trades-services-summary` - returns a high-level summary of the trades services offered by Housekeep
+- `get-trades-quote` - calls the Housekeep API `/trades-quote/` endpoint to get a quote for a trades job
+- `create-booking-attempt` - calls the Housekeep API to create a booking attempt for a trades job
 
-Deploy your own version of this example site, by clicking the Deploy to Netlify Button below. This will automatically:
+> Note that at the time of writing, it's only possible to create plumber, gardener or handyman bookings using the `create-booking-attempt` tool.
 
-- Clone a copy of this example from the examples repo to your own GitHub account
-- Create a new project in your [Netlify account](https://app.netlify.com/?utm_medium=social&utm_source=github&utm_campaign=devex-ph&utm_content=devex-examples), linked to your new repo
-- Create an automated deployment pipeline to watch for changes on your repo
-- Build and deploy your new site
-- This repo can then be used to iterate on locally using `netlify dev`
+### Architecture
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify/examples/&create_from_path=examples/mcp/serverless-mcp&utm_campaign=dx-examples)
+The MCP server is designed to be used with the Claude Desktop app (although it ought to work with other AI Clients, too). This diagram shows how the MCP server integrates with Claude Desktop.
 
-## Install and run the examples locally
+![Screenshot 2025-06-04 at 13.01.25.png](..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fbw%2F0_gw3t3d1634y8nnd0349_x80000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_2yu7jw%2FScreenshot%202025-06-04%20at%2013.01.25.png)
 
-You can clone this entire examples repo to explore this and other examples, and to run them locally.
+### Setting the MCP server up with Claude Desktop
+
+To set up the MCP server with Claude Desktop, follow these steps:
+
+1. Open the Claude Desktop app.
+2. Open the settings, then click "Developer".
+3. Click the "Edit Config" button. This will open the config file in a Finder window (on macOS).
+4. Open the config file in a text editor and paste in the config below. Save the file and restart Claude Desktop.
+
+```json
+{
+  "mcpServers": {
+    "housekeep-mcp": {
+      "command": "npx",
+      "args": [
+        "mcp-remote@next",
+        "https://housekeep-mcp.netlify.app/mcp"
+      ]
+    }
+  }
+}
+```
+
+## Development
+
+Clone this repo to explore and run it locally.
 
 ```shell
 
 # 1. Clone the examples repository to your local development environment
-git clone git@github.com:netlify/examples
+git clone git@github.com:mrmikardo/housekeep-mcp-netlify.git
 
-# 2. Move into the project directory for this example
-cd examples/mcp/serverless-mcp
-
-# 3. Install the Netlify CLI to let you locally serve your site using Netlify's features
+# 2. Install the Netlify CLI to let you locally serve your site using Netlify's features
 npm i -g netlify-cli
 
-# 4. Serve your site using Netlify Dev to get local serverless functions
+# 3. Serve your site using Netlify Dev to get local serverless functions
 netlify dev
 
-# 5. While the site is running locally, open a separate terminal tab to run the MCP inspector or client you desire
+# 4. While the site is running locally, open a separate terminal tab to run the MCP inspector or client you desire
 npx @modelcontextprotocol/inspector npx mcp-remote@next http://localhost:8888/mcp
 
 ```
+
+Pushing to the `main` branch will automatically deploy your changes to Netlify.
