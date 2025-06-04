@@ -103,5 +103,5 @@ export const BookingAttemptCreationDictSchema = z.object({
     remarketing_consent: z.boolean().default(true),
     // start_time: z.record(z.unknown()),
     primary_task_type: z.literal("trades"),
-    first_clean_request: MultiFormatDateSchema.nullable().optional().transform((val) => val ?? "")
+    first_clean_request: MultiFormatDateSchema.transform((val) => val ?? "")
 });
