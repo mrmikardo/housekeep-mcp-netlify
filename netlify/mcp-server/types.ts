@@ -108,16 +108,19 @@ export const BookingAttemptCreationDictSchema = z.object({
   garden_waste_disposal: z.boolean().nullable().optional(),
   gardening_secondary_tasks: z
     .array(
-      z.enum([
-        { type: 'lawn-mowing', quantity: 1 },
-        { type: 'weeding', quantity: 1 },
-        { type: 'hedge-trimming', quantity: 1 },
-        { type: 'pruning', quantity: 1 },
-        { type: 'planting', quantity: 1 },
-        { type: 'leaf-clearance', quantity: 1 },
-        { type: 'patio-jet-wash', quantity: 1 },
-        { type: 'general-tidying', quantity: 1 },
-      ])
+      z.object({
+        type: z.enum([
+          'lawn-mowing',
+          'weeding',
+          'hedge-trimming',
+          'pruning',
+          'planting',
+          'leaf-clearance',
+          'patio-jet-wash',
+          'general-tidying',
+        ]),
+        quantity: z.literal(1),
+      })
     )
     .optional(),
   line_1: z.string(),
