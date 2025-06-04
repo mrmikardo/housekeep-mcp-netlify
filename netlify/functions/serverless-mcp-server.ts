@@ -2,7 +2,6 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { toFetchResponse, toReqRes } from 'fetch-to-node';
 import { setupMCPServer } from '../mcp-server';
 
-// Netlify serverless function handler
 export default async (req: Request) => {
   try {
     // Handle different HTTP methods
@@ -57,9 +56,9 @@ async function handleMCPPost(req: Request) {
   return toFetchResponse(nodeRes);
 }
 
-// For the stateless server, GET requests are used to initialize
-// SSE connections which are stateful. Therefore, we don't need
-// to handle GET requests but we can signal to the client this error.
+// GET requests are used to initialize stateful SSE connections.
+// As the MCP server here is stateless, we don't need to handle
+// GET requests: we signal this to the client by sending a 405.
 function handleMCPGet() {
   console.log('Received GET MCP request');
   return new Response(
@@ -96,9 +95,6 @@ function handleMCPDelete() {
   );
 }
 
-// Ensure this function responds to the <domain>/mcp path
-// This can be any path you want but you'll need to ensure the
-// mcp server config you use/share matches this path.
 export const config = {
   path: '/mcp',
 };
