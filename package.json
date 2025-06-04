@@ -1,8 +1,8 @@
 {
-    "name": "netlify-example-serverless-mcp",
+    "name": "housekeep-mcp",
     "version": "1.0.0",
-    "description": "A site to show a MCP example using Netlify Functions",
-    "author": "Netlify",
+    "description": "Housekeep Model Context Protocol server",
+    "author": "Housekeep",
     "type": "module",
     "license": "ISC",
     "dependencies": {
