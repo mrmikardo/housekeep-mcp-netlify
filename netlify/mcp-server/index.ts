@@ -131,6 +131,13 @@ export const setupMCPServer = (): McpServer => {
     async (req): Promise<CallToolResult> => {
       console.log(JSON.stringify(req.parameters, null, 2));
 
+      const tasks = [
+        ...req.parameters.tasks,
+        ...(req.parameters.gardening_secondary_tasks || []),
+      ];
+      delete req.parameters.gardening_secondary_tasks;
+      delete req.parameters.tasks;
+
       const reqBody = req.parameters;
       reqBody.start_time = {
         start: '09:00:00',
@@ -138,6 +145,7 @@ export const setupMCPServer = (): McpServer => {
         type: 'custom',
         is_flexible: false,
       };
+      reqBody.tasks = tasks;
 
       console.log(JSON.stringify(reqBody, null, 2));
 
@@ -190,7 +198,9 @@ export const setupMCPServer = (): McpServer => {
               '    It MUST be a date string in the format YYYY-MM-DD.' +
               '4. All jobs except for gardening jobs can only be One-off jobs. You only need to set ' +
               '`frequency` to greater than One-off if the job is a gardening job. ' +
-              '5. `first_clean_request` is ALWAYS required. It is the date that the customer wishes to book the service for. ',
+              '5. `first_clean_request` is ALWAYS required. It is the date that the customer wishes to book the service for. ' +
+              '6. At least one item in `gardening_secondary_tasks` is required for gardening jobs. It should be ommitted' +
+              'for all other job types.',
           },
         ],
       };
