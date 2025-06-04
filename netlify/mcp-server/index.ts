@@ -131,7 +131,7 @@ server.tool(
         const response = await fetch(
             `${HOUSEKEEP_API_BASE}/booking/?booking_type=trades&booking_attempt_token=/`,
             {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                 },
