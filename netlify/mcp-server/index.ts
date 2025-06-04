@@ -156,5 +156,27 @@ server.tool(
     }
 )
 
+    server.resource(
+        "using-create-booking-attempt",
+        "housekeep://using-create-booking-attempt",
+        { mimeType: "text/plain" },
+        async (req): Promise<ReadResourceRequest> => {
+            return {
+                contents: [
+                    {
+                        uri: "housekeep://using-create-booking-attempt",
+                        text: "To use the create-booking-attempt tool, you must pass an object containing various " +
+                            "fields. This object is broadly described by the tool's parameters. There are a few " +
+                            "considerations to note: " +
+                            "1. `garden_waste_disposal` is only required for gardening jobs. " +
+                            "2. `garden_size` is only required for gardening jobs. " +
+                            "3. `first_clean_request` is the date that the customer wishes to book the service for." +
+                            "    It must be a date string in the format YYYY-MM-DD.",
+                    },
+                ],
+            };
+        }
+    )
+
   return server;
 };

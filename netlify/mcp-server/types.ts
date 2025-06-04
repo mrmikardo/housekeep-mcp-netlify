@@ -73,7 +73,7 @@ const TaskDictSchema = z.object({
 
 
 export const BookingAttemptCreationDictSchema = z.object({
-    bedrooms: z.string().nullable(),
+    // bedrooms: z.string().nullable(),  // Not required for gardening, handyman or plumber jobs
     city: z.string(),
     email: z.string().email(),
     free_parking_available: z.literal("Yes").or(z.literal("No")),
@@ -84,7 +84,7 @@ export const BookingAttemptCreationDictSchema = z.object({
         "Threeweekly",
         "Fourweekly"
     ]),
-    garden_waste_disposal: z.boolean().nullable(),
+    garden_waste_disposal: z.boolean().nullable().optional(),
     line_1: z.string(),
     line_2: z.string(),
     name: z.string(),
@@ -98,9 +98,9 @@ export const BookingAttemptCreationDictSchema = z.object({
         "Medium (31m² to 70m²)",
         "Large (71m² to over 120m²)",
         ""
-    ]),
-    terms_and_conditions_consent: z.boolean(),
-    remarketing_consent: z.boolean(),
+    ]).optional(),
+    terms_and_conditions_consent: z.boolean().default(true),
+    remarketing_consent: z.boolean().default(true),
     // start_time: z.record(z.unknown()),
     primary_task_type: z.literal("trades"),
     first_clean_request: MultiFormatDateSchema.nullable().optional().transform((val) => val ?? "")
