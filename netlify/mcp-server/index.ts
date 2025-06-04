@@ -118,6 +118,16 @@ server.tool(
         console.log(req.parameters);
         console.log(JSON.stringify(req.parameters));
 
+        const reqBody = req.parameters;
+        reqBody.start_time = {
+            start: "09:00:00",
+            end: "15:00:00",
+            type: "custom",
+            is_flexible: false
+        }
+
+        console.log(JSON.stringify(reqBody, null, 2));
+
         const response = await fetch(
             `${HOUSEKEEP_API_BASE}/booking/?booking_type=trades&booking_attempt_token=/`,
             {
@@ -125,7 +135,7 @@ server.tool(
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(req.parameters),
+                body: JSON.stringify(reqBody),
             }
         );
 
