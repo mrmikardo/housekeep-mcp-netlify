@@ -66,7 +66,6 @@ export const setupMCPServer = (): McpServer => {
         job_date,
         tasks_string_ids,
         tasks_hours,
-        tasks_quantities,
       } = req.parameters;
 
       console.log(req.parameters);
@@ -130,10 +129,7 @@ export const setupMCPServer = (): McpServer => {
       parameters: BookingAttemptCreationDictSchema,
     },
     async (req): Promise<CallToolResult> => {
-      // const { bedrooms, city, email, free_parking_available, frequency, garden_waste_disposal, line_1, line_2, name, postcode, property_type, special_instructions, tasks, telephone, garden_size, terms_and_conditions_consent, remarketing_consent, start_time, primary_task_type, first_clean_request } = req.parameters;
-
-      console.log(req.parameters);
-      console.log(JSON.stringify(req.parameters));
+      console.log(JSON.stringify(req.parameters, null, 2));
 
       const reqBody = req.parameters;
       reqBody.start_time = {
