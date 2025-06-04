@@ -115,7 +115,6 @@ export const BookingAttemptCreationDictSchema = z.object({
       'Small (up to 30m²)',
       'Medium (31m² to 70m²)',
       'Large (71m² to over 120m²)',
-      '',
     ])
     .optional(),
   terms_and_conditions_consent: z.boolean().default(true),
