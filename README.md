@@ -1,4 +1,3 @@
-
 # Housekeep MCP example
 
 **View the Housekeep MCP site**: https://housekeep-mcp.netlify.app/
@@ -14,6 +13,7 @@ This repo shows a very a basic example of developing and running serverless MCP 
 - [Agent Experience (AX)](https://agentexperience.ax?utm_source=serverless-mcp-guide&utm_medium=web&utm_content=example-mcp-serverless)
 
 The MCP server provided here exposes three _tools_:
+
 - `get-trades-services-summary` - returns a high-level summary of the trades services offered by Housekeep
 - `get-trades-quote` - calls the Housekeep API `/trades-quote/` endpoint to get a quote for a trades job
 - `create-booking-attempt` - calls the Housekeep API to create a booking attempt for a trades job
@@ -40,10 +40,7 @@ To set up the MCP server with Claude Desktop, follow these steps:
   "mcpServers": {
     "housekeep-mcp": {
       "command": "npx",
-      "args": [
-        "mcp-remote@next",
-        "https://housekeep-mcp.netlify.app/mcp"
-      ]
+      "args": ["mcp-remote@next", "https://housekeep-mcp.netlify.app/mcp"]
     }
   }
 }

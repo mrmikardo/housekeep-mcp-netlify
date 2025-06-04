@@ -15,12 +15,6 @@
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": [
-    "netlify/**/*",
-    "public/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["netlify/**/*", "public/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
