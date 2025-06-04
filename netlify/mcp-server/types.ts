@@ -83,7 +83,7 @@ export const BookingAttemptCreationDictSchema = z.object({
         "Fortnightly",
         "Threeweekly",
         "Fourweekly"
-    ]),
+    ]).default("One-off"),
     garden_waste_disposal: z.boolean().nullable().optional(),
     line_1: z.string(),
     line_2: z.string(),

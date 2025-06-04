@@ -171,7 +171,9 @@ server.tool(
                             "1. `garden_waste_disposal` is only required for gardening jobs. " +
                             "2. `garden_size` is only required for gardening jobs. " +
                             "3. `first_clean_request` is the date that the customer wishes to book the service for." +
-                            "    It must be a date string in the format YYYY-MM-DD.",
+                            "    It must be a date string in the format YYYY-MM-DD." +
+                            "4. All jobs except for gardening jobs can only be One-off jobs. You only need to set " +
+                                "`frequency` to greater than One-off if the job is a gardening job. ",
                     },
                 ],
             };
