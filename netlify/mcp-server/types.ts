@@ -64,3 +64,44 @@ export const TradesQuoteRequestSchema = z.object({
     tasks_hours: z.array(z.string().nullable()).nullable()
     // tasks_quantities: z.array(z.string().nullable()).nullable(),  // TODO: this is cheating.
 });
+
+
+const TaskDictSchema = z.object({
+    type: z.string(),
+    hours: z.string().nullable().optional().transform((val) => val ?? ""),
+});
+
+
+export const BookingAttemptCreationDictSchema = z.object({
+    bedrooms: z.string().nullable(),
+    city: z.string(),
+    email: z.string().email(),
+    free_parking_available: z.literal("Yes").or(z.literal("No")),
+    frequency: z.enum([
+        "One-off",
+        "Weekly",
+        "Fortnightly",
+        "Threeweekly",
+        "Fourweekly"
+    ]),
+    garden_waste_disposal: z.boolean().nullable(),
+    line_1: z.string(),
+    line_2: z.string(),
+    name: z.string(),
+    postcode: z.string(),
+    property_type: z.enum(["flat", "house"]),
+    special_instructions: z.string().nullable(),
+    tasks: z.array(TaskDictSchema),
+    telephone: z.string(),
+    garden_size: z.enum([
+        "Small (up to 30m²)",
+        "Medium (31m² to 70m²)",
+        "Large (71m² to over 120m²)",
+        ""
+    ]),
+    terms_and_conditions_consent: z.boolean(),
+    remarketing_consent: z.boolean(),
+    start_time: z.record(z.unknown()), // Generic object, adjust based on actual structure
+    primary_task_type: z.literal("trades"),
+    first_clean_request: z.date()
+});

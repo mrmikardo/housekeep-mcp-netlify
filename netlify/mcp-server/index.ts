@@ -3,7 +3,7 @@ import {
   CallToolResult,
     ReadResourceRequest
 } from "@modelcontextprotocol/sdk/types.js";
-import { TradesQuoteRequestSchema } from "./types";
+import {BookingAttemptCreationDictSchema, TradesQuoteRequestSchema} from "./types";
 
 const HOUSEKEEP_API_BASE = "https://housekeep.com/api/v1"
 
@@ -12,7 +12,7 @@ export const setupMCPServer = (): McpServer => {
 
   const server = new McpServer(
     {
-      name: "stateless-server",
+      name: "housekeep-mcp-server",
       version: "1.0.0",
     },
     { capabilities: { logging: {} } }
@@ -104,6 +104,47 @@ export const setupMCPServer = (): McpServer => {
         };
       }
   )
+
+server.tool(
+    "create-booking-attempt",
+    "Create a booking attempt for a trades service from Housekeep",
+    {
+        parameters: BookingAttemptCreationDictSchema,
+    },
+    async (req): Promise<CallToolResult> => {
+
+        // const { bedrooms, city, email, free_parking_available, frequency, garden_waste_disposal, line_1, line_2, name, postcode, property_type, special_instructions, tasks, telephone, garden_size, terms_and_conditions_consent, remarketing_consent, start_time, primary_task_type, first_clean_request } = req.parameters;
+
+        console.log(req.parameters);
+        console.log(JSON.stringify(req.parameters));
+
+        const response = await fetch(
+            `${HOUSEKEEP_API_BASE}/booking/?booking_type=trades&booking_attempt_token=/`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(req.parameters),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Failed to create booking attempt: ${response.statusText}`);
+        }
+
+        const text = await response.json()
+
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: JSON.stringify(text, null, 2),
+                },
+            ],
+        };
+    }
+)
 
   return server;
 };
